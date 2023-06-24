@@ -1,70 +1,64 @@
 import java.util.Scanner;
 
-class Guesser{
-
-    public static int getNumber() {
+class Guesser {
+    public int getNumber() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Hey Guesser, guess a number : ");
+        System.out.print("Hey Guesser, guess a number: ");
         return sc.nextInt();
     }
 }
 
-class Player{
-
-    public static int guessNumbers() {
+class Player {
+    public int guessNumber() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Hey Player, guess a number : ");
+        System.out.print("Hey Player, guess a number: ");
         return sc.nextInt();
     }
 }
 
-class Umpire{
-    static int guesserNum;
-    static int p1Guess;
-    static int p2Guess;
-    static int p3Guess;
+class Umpire {
+    private int guesserNum;
+    private int[] playerGuesses;
 
-    public static void getNumFromGuesser() {
-        guesserNum = Guesser.getNumber();
+    public void getNumFromGuesser() {
+        Guesser guesser = new Guesser();
+        guesserNum = guesser.getNumber();
     }
 
-    public static void collectNumbersFromPlayers() {
-        Player p1 = new Player();
-        Player p2 = new Player();
-        Player p3 = new Player();
-        p1Guess = p1.guessNumbers();
-        p2Guess = p2.guessNumbers();
-        p3Guess = p3.guessNumbers();
+    public void collectNumbersFromPlayers() {
+        Player[] players = new Player[3];
+        playerGuesses = new int[3];
+        for (int i = 0; i < players.length; i++) {
+            players[i] = new Player();
+            playerGuesses[i] = players[i].guessNumber();
+        }
     }
 
-    public static void calcResult() {
+    public void calculateResult() {
+        boolean guesserCorrect = false;
+        boolean playersCorrect = false;
 
-        if(guesserNum == p1Guess){
-            if(guesserNum == p2Guess && guesserNum == p3Guess){
-                System.out.println(" **** All the Player have guessed the correct answer ****");
-            }
-            else if(guesserNum == p2Guess){
-                System.out.println(" **** Player 1 and 2 have guessed the correct answer ****");
-            }
-            else if(guesserNum == p3Guess){
-                System.out.println(" **** Player 1 and 3 have guessed the correct answer ****");
-            }
-            else{
-                System.out.println("**** Player 1 have guessed the correct answer ****");
+        // Check if any player has guessed the correct number
+        for (int guess : playerGuesses) {
+            if (guesserNum == guess) {
+                playersCorrect = true;
+                break;
             }
         }
-        else if(guesserNum == p2Guess){
-            if(guesserNum == p3Guess){
-                System.out.println(" **** Player 2 and 3 have guessed the correct answer ****");
-            }
-            else{
-                System.out.println("**** Player 2 have guessed the correct answer ****");
-            }
+
+        // Check if all players and the guesser have guessed the correct number
+        if (guesserNum == playerGuesses[0] && guesserNum == playerGuesses[1] && guesserNum == playerGuesses[2]) {
+            guesserCorrect = true;
         }
-        else if(guesserNum == p3Guess){
-            System.out.println("**** Player 3 have guessed the correct answer ****");
-        }
-        else{
+
+        // Determine the result based on the guesses
+        if (guesserCorrect && playersCorrect) {
+            System.out.println("**** All the players have guessed the correct answer ****");
+        } else if (guesserCorrect) {
+            System.out.println("**** Guesser and some players have guessed the correct answer ****");
+        } else if (playersCorrect) {
+            System.out.println("**** Some players have guessed the correct answer ****");
+        } else {
             System.out.println("**** You have guessed wrong answers ****");
         }
     }
@@ -72,9 +66,9 @@ class Umpire{
 
 public class GuesserGame {
     public static void main(String[] args) {
-        Umpire.getNumFromGuesser();
-        Umpire.collectNumbersFromPlayers();
-        Umpire.calcResult();
-
+        Umpire umpire = new Umpire();
+        umpire.getNumFromGuesser();
+        umpire.collectNumbersFromPlayers();
+        umpire.calculateResult();
     }
 }
