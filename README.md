@@ -20,17 +20,19 @@ Make sure you have Java Development Kit (JDK) installed on your system.
 1. Clone this repository to your local machine.
 2. Open a command prompt or terminal and navigate to the project directory.
 3. Compile the Java source files by running the following command:
+   ```bash
    `javac GuesserGame.java`
 4. Run the game by executing the following command:
+   ```bash
    `java GuesserGame`
 
 ## Gameplay Example
 
-Hey Guesser, guess a number: 50
-Hey Player, guess a number: 30
-Hey Player, guess a number: 60
-Hey Player, guess a number: 50
-**** Player 1 have guessed the correct answer ****
+##### Hey Guesser, guess a number: 50
+##### Hey Player, guess a number: 30
+##### Hey Player, guess a number: 60
+##### Hey Player, guess a number: 50
+##### **** Player 1 have guessed the correct answer ****
 
 In this example, the Guesser chose number 50, and Player 1 correctly guessed the number.
 
